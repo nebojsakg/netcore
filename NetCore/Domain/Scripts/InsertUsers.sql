@@ -1,0 +1,1 @@
+﻿INSERT INTO [dbo].[Postnumbers] ([Postnr], [City], [CountyNumber], [County]) VALUES ('0001', 'OSLO', '0301', 'OSLO');
