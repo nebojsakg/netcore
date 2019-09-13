@@ -26,7 +26,7 @@ namespace NetCore
         {
             services.AddMvcServices();
             services.AddCorsServices();
-            services.AddDatabase(AppSettings.ConnectionString);
+            services.AddDatabase(AppSettings.PostgreSqlConnectionString);
 
             services.AddAutoMapper();
             services.AddLocalization();
@@ -47,7 +47,7 @@ namespace NetCore
 
             app.UseMvc();
 
-            app.MigrateDatabase();         
+            app.MigrateDatabase();
         }
     }
 }

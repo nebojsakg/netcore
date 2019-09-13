@@ -19,10 +19,16 @@ namespace Common.Configuration
         }
 
         /// <summary>
-        /// Connection string for NetCore database
+        /// Connection string for NetCore database (SqlServer)
         /// </summary>
         public static string ConnectionString =>
             _configurationRoot.GetSection("ConnectionStrings").GetSection("NetCore").Value;
+
+        /// <summary>
+        /// Connection string for NetCore database (PostgreSql)
+        /// </summary>
+        public static string PostgreSqlConnectionString =>
+            _configurationRoot.GetSection("ConnectionStrings").GetSection("PostgreSql").Value;
 
         /// <summary>
         /// Serilog settings
@@ -33,7 +39,7 @@ namespace Common.Configuration
         /// <summary>
         /// Jwt settings
         /// </summary>
-        public static JwtSettings JwtSettings => 
+        public static JwtSettings JwtSettings =>
             new JwtSettings(_configurationRoot);
     }
 }

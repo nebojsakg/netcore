@@ -19,6 +19,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using NetCore;
+using Npgsql;
 
 namespace Extensions
 {
@@ -73,7 +74,7 @@ namespace Extensions
             {
                 settings.SerializerSettings = new JsonSerializerSettings
                 {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()               
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
                 };
                 settings.Title = "NetCore";
             });
@@ -124,9 +125,13 @@ namespace Extensions
 
         public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<DatabaseContext>(options =>
-                options
-                .UseSqlServer(connectionString, optionsAction => optionsAction.EnableRetryOnFailure()));
+            // services.AddDbContext<DatabaseContext>(options =>
+            //     options
+            //     .UseSqlServer(connectionString, optionsAction => optionsAction.EnableRetryOnFailure()));
+
+            var builder = new NpgsqlConnectionStringBuilder(connectionString);
+
+            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(builder.ConnectionString, optionsAction => optionsAction.EnableRetryOnFailure()));
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DatabaseContext>()
